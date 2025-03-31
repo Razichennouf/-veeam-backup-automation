@@ -1,0 +1,34 @@
+---
+- name: Check for system updates
+  hosts: all
+  become: yes  # Run as root to check updates
+  tasks:
+    # Debian/Ubuntu: Update package cache and check for upgrades
+    - name: Update apt cache (Debian/Ubuntu)
+      apt:
+        update_cache: yes
+      register: apt_update
+      when: ansible_os_family == "Debian"
+
+    - name: Check for available updates (Debian/Ubuntu)
+      shell: apt list --upgradable
+      register: apt_updates
+      when: ansible_os_family == "Debian"
+      changed_when: false  # This is just a check, not a change
+
+    - name: Display available updates (Debian/Ubuntu)
+      debug:
+        msg: "{{ apt_updates.stdout_lines }}"
+      when: ansible_os_family == "Debian" and apt_updates.stdout != ""
+
+    # Red Hat/CentOS: Check for updates with yum/dnf
+    - name: Check for available updates (Red Hat/CentOS)
+      yum:
+        list: updates
+      register: yum_updates
+      when: ansible_os_family == "RedHat"
+
+    - name: Display available updates (Red Hat/CentOS)
+      debug:
+        var: yum_updates.results
+      when: ansible_os_family == "RedHat" and yum_updates.results is defined and yum_updates.results | length > 0
