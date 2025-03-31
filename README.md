@@ -2,8 +2,15 @@
 
 ## 📌 Project Overview
 This project automates backup and disaster recovery operations using **Veeam Backup & Replication**. It ensures **secure, efficient, and automated data protection** for Windows/Linux servers and MySQL/MariaDB databases, leveraging **Ansible** for deployment.
-
-## 🎯 Key Features
+## Project Terms
+- Long term retention
+- Tiering 
+- Lower Cost
+- Backups
+## Project Requirements
+-  This project is not prod, it is meant for learning purposes and be cost effective for learners.
+- **Instances**: t3.small: 2 vCPUs, 2GB RAM | t3.medium: 2 vCPUs, 4GB RAM
+# 🎯 Key Features
 - **Automated Backup & Recovery** using Veeam
 - **Support for Windows/Linux Servers & MySQL/MariaDB**
 - **Backup Storage Options**: AWS S3 & Local Storage (NAS)
